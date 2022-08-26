@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+  kind: {{ .Values.deployment.name }}
+  metadata:
+    annotations:
+      kubernetes.io/ingress.class: nginx
+    name: example
+    namespace: {{.values.deployment.name}}
+  spec:
+    rules:
+      - host: {{.values.deployment.host}}
+        http:
+          paths:
+            - backend:
+                serviceName: exampleService
+                servicePort: {{.values.deployment.port}}
+              path: /
